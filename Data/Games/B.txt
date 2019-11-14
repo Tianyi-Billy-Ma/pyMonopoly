@@ -1,0 +1,548 @@
+ccopy_reg
+_reconstructor
+p0
+(c__main__
+Game
+p1
+c__builtin__
+object
+p2
+Ntp3
+Rp4
+(dp5
+Vplayers
+p6
+(lp7
+g0
+(c__main__
+player
+p8
+g2
+Ntp9
+Rp10
+(dp11
+Vdict
+p12
+(dp13
+Vname
+p14
+VSara\u000a
+p15
+sVmark
+p16
+V&\u000a
+p17
+sVgames_played
+p18
+V0\u000a
+p19
+sVsetting address
+p20
+V/Users/tianyima/github/pyMonopoly/Data/Players/Sara.txt
+p21
+ssVname
+p22
+VSara
+p23
+sVmark
+p24
+g17
+sVgames_palyed
+p25
+g19
+sVmoney
+p26
+I0
+sbag0
+(g8
+g2
+Ntp27
+Rp28
+(dp29
+g12
+(dp30
+Vname
+p31
+VTom\u000a
+p32
+sVmark
+p33
+V@\u000a
+p34
+sVgames_played
+p35
+V0
+p36
+sg20
+V/Users/tianyima/github/pyMonopoly/Data/Players/Tom.txt
+p37
+ssg22
+VTom
+p38
+sg24
+g34
+sg25
+g36
+sg26
+I0
+sbag0
+(g8
+g2
+Ntp39
+Rp40
+(dp41
+g12
+(dp42
+Vname
+p43
+VBilly\u000a
+p44
+sVmark
+p45
+V*\u000a
+p46
+sVgames_played
+p47
+V0\u000a
+p48
+sg20
+V/Users/tianyima/github/pyMonopoly/Data/Players/Billy.txt
+p49
+ssg22
+VBilly
+p50
+sg24
+g46
+sg25
+g48
+sg26
+I0
+sbasVmap
+p51
+g0
+(c__main__
+pyMap
+p52
+g2
+Ntp53
+Rp54
+(dp55
+Vaddress
+p56
+V/Users/tianyima/github/pyMonopoly/Data/Maps/standard.txt
+p57
+sg12
+(dp58
+Vname
+p59
+Vstandard\u000a
+p60
+sg36
+V Place 0\u000a
+p61
+sV1
+p62
+V Place 1\u000a
+p63
+sV2
+p64
+V Place 2\u000a
+p65
+sV3
+p66
+V Place 3\u000a
+p67
+sV4
+p68
+V Place 4\u000a
+p69
+sV5
+p70
+V Place 5\u000a
+p71
+sV6
+p72
+V Place 6\u000a
+p73
+sV7
+p74
+V Place 7\u000a
+p75
+sV8
+p76
+V Place 8\u000a
+p77
+sV9
+p78
+V Place 9\u000a
+p79
+sV10
+p80
+V Place 10\u000a
+p81
+sV11
+p82
+V Place 11\u000a
+p83
+sV12
+p84
+V Place 12\u000a
+p85
+sV13
+p86
+V Place 13\u000a
+p87
+sV14
+p88
+V Place 14\u000a
+p89
+sV15
+p90
+V Place 15\u000a
+p91
+sV16
+p92
+V Place 16\u000a
+p93
+sV17
+p94
+V Place 17\u000a
+p95
+sV18
+p96
+V Place 18\u000a
+p97
+sV19
+p98
+V Place 19\u000a
+p99
+sV20
+p100
+V Place 20\u000a
+p101
+sV21
+p102
+V Place 21\u000a
+p103
+sV22
+p104
+V Place 22\u000a
+p105
+sV23
+p106
+V Place 23\u000a
+p107
+sV24
+p108
+V Place 24\u000a
+p109
+sV25
+p110
+V Place 25\u000a
+p111
+sV26
+p112
+V Place 26\u000a
+p113
+sV27
+p114
+V Place 27\u000a
+p115
+sV28
+p116
+V Place 28\u000a
+p117
+sV29
+p118
+V Place 29\u000a
+p119
+sV30
+p120
+V Place 30\u000a
+p121
+sV31
+p122
+V Place 31\u000a
+p123
+sV32
+p124
+V Place 32\u000a
+p125
+sV33
+p126
+V Place 33\u000a
+p127
+sV34
+p128
+V Place 34\u000a
+p129
+sV35
+p130
+V Place 35\u000a
+p131
+sV36
+p132
+V Place 36\u000a
+p133
+sV37
+p134
+V Place 37\u000a
+p135
+sV38
+p136
+V Place 38\u000a
+p137
+sV39
+p138
+V Place 39\u000a
+p139
+sV40
+p140
+V Place 40\u000a
+p141
+sV41
+p142
+V Place 41\u000a
+p143
+sV42
+p144
+V Place 42\u000a
+p145
+sV43
+p146
+V Place 43\u000a
+p147
+sV44
+p148
+V Place 44\u000a
+p149
+sV45
+p150
+V Place 45\u000a
+p151
+sV46
+p152
+V Place 46\u000a
+p153
+sV47
+p154
+V Place 47\u000a
+p155
+sV48
+p156
+V Place 48\u000a
+p157
+sV49
+p158
+V Place 49\u000a
+p159
+sV50
+p160
+V Place 50\u000a
+p161
+sV51
+p162
+V Place 51\u000a
+p163
+sV52
+p164
+V Place 52\u000a
+p165
+sV53
+p166
+V Place 53\u000a
+p167
+sV54
+p168
+V Place 54\u000a
+p169
+sV55
+p170
+V Place 55\u000a
+p171
+sV56
+p172
+V Place 56\u000a
+p173
+sV57
+p174
+V Place 57\u000a
+p175
+sV58
+p176
+V Place 58\u000a
+p177
+sV59
+p178
+V Place 59\u000a
+p179
+sV60
+p180
+V Place 60\u000a
+p181
+sV61
+p182
+V Place 61\u000a
+p183
+sV62
+p184
+V Place 62\u000a
+p185
+sV63
+p186
+V Place 63\u000a
+p187
+sV64
+p188
+V Place 64\u000a
+p189
+sV65
+p190
+V Place 65\u000a
+p191
+sV66
+p192
+V Place 66\u000a
+p193
+sV67
+p194
+V Place 67\u000a
+p195
+sV68
+p196
+V Place 68\u000a
+p197
+sV69
+p198
+V Place 69\u000a
+p199
+sV70
+p200
+V Place 70\u000a
+p201
+sV71
+p202
+V Place 71\u000a
+p203
+sV72
+p204
+V Place 72\u000a
+p205
+sV73
+p206
+V Place 73\u000a
+p207
+sV74
+p208
+V Place 74\u000a
+p209
+sV75
+p210
+V Place 75\u000a
+p211
+sV76
+p212
+V Place 76\u000a
+p213
+sV77
+p214
+V Place 77\u000a
+p215
+sV78
+p216
+V Place 78\u000a
+p217
+sV79
+p218
+V Place 79\u000a
+p219
+sV80
+p220
+V Place 80\u000a
+p221
+sV81
+p222
+V Place 81\u000a
+p223
+sV82
+p224
+V Place 82\u000a
+p225
+sV83
+p226
+V Place 83\u000a
+p227
+sV84
+p228
+V Place 84\u000a
+p229
+sV85
+p230
+V Place 85\u000a
+p231
+sV86
+p232
+V Place 86\u000a
+p233
+sV87
+p234
+V Place 87\u000a
+p235
+sV88
+p236
+V Place 88\u000a
+p237
+sV89
+p238
+V Place 89\u000a
+p239
+sV90
+p240
+V Place 90\u000a
+p241
+sV91
+p242
+V Place 91\u000a
+p243
+sV92
+p244
+V Place 92\u000a
+p245
+sV93
+p246
+V Place 93\u000a
+p247
+sV94
+p248
+V Place 94\u000a
+p249
+sV95
+p250
+V Place 95\u000a
+p251
+sV96
+p252
+V Place 96\u000a
+p253
+sV97
+p254
+V Place 97\u000a
+p255
+sV98
+p256
+V Place 98\u000a
+p257
+sV99
+p258
+V Place 99\u000a
+p259
+sg20
+g57
+ssVmapname
+p260
+Vstandard
+p261
+sbsg22
+VB
+p262
+sb.
