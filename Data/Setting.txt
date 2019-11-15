@@ -1,6 +1,0 @@
-maps:standard,hard
-select_players:Sara,Tom,Billy
-selected_map:standard
-players:Billy,Sara,Tom,John,mimi,Jimmy
-money:10000
-num_players:3

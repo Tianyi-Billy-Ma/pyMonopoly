@@ -23,7 +23,7 @@ class Parameter:
     def get_OPTIONS(self): return self.OPTIONS
     def get_LOADMAP(self): return self.LOADMAP
     def get_optionfile(self):return self.optionfile
-    def save_settings(self,dict): self.settings = SetOption(dict)
+    def save_settings(self,settings): self.settings = settings
     def get_settings(self): return self.settings
 PYPARAMETER = Parameter()
 class player:
@@ -55,6 +55,7 @@ def read_dictionary(file_address,operation):
             d[key] = val
     d['setting address'] = file_address
     return d
+
 class pyMap:
     def __init__(self,mapaddress):
         self.address = MAP_LOCATION  + "{}.txt".format(mapaddress)
@@ -96,6 +97,7 @@ class LoadGame:
         print("\n"*100)
         no_files = False
         idx = 0
+        print("Load Games: \n")
         for file in self.games_address:
             if file.endswith(".txt"):
                 print("{}. {}".format(idx+1,file))
@@ -138,8 +140,13 @@ class main_menu:
     def exit_monopoly(self):
         print("See you next time!")
 PYMENU = main_menu()
+def Load_settings():
+    file = open(DATA_LOCATION+'/Settings.txt','rb')
+    settings = cPickle.load(file)
+    file.close()
+    return settings
 class SetOption:
-    def __init__(self,dict = None):
+    def __init__(self):
         self.maps = []
         self.players = []
         self.dict = dict
@@ -147,40 +154,6 @@ class SetOption:
         self.money = 0
         self.playmap = None
         self.play_players = []
-        if self.dict:
-            try:
-                maps_list = self.dict['maps'].split(",")
-                for map in maps_list:
-                    map = map.strip('\n')
-                    map = pyMap(map)
-                    self.maps.append(map)
-                    if map.get_name() == self.dict["selected_map"].strip("\n"):
-                        self.playmap = map
-            except:
-                print("Fail to load maps from setting.txt")
-            try:
-                players_list = self.dict['players'].split(",")
-                for player_file in players_list:
-                    self.players.append(player(player_file.strip('\n')))
-            except:
-                print("Fail to load players from setting.txt")
-            try:
-                self.money = int(self.dict['money'].strip("\n"))
-                self.num_players = int(self.dict['num_players'].strip("\n"))
-            except:
-                print("Fail to load money and num of players")
-            try:
-                selected_player_list = self.dict['select_players'].split(",")
-                selected_player_list[-1] = selected_player_list[-1].strip("\n")
-                for selected_player in selected_player_list:
-                    for search_player in self.players:
-                        if selected_player == search_player.get_name():
-                                self.play_players.append(search_player)
-            except:
-                print("Fail to load selected player")
-
-        else:
-            print("Error exist in loading settings or there are no default settings")
     def get_players(self): return self.players
     def get_players_names(self): return [player.get_name() for player in self.players]
     def get_maps_names(self): return [map.get_name().strip('\n') for map in self.maps]
@@ -195,9 +168,12 @@ class SetOption:
             for idx,player in enumerate(tmp):
                 print("{}. {}".format(idx+1,player.get_name()))
             index = int(input("Please input the number\n"))
-            if tmp[index-1] not in self.play_players:
-                self.play_players.append(tmp[index-1])
-            tmp.remove(self.play_players[-1])
+            try:
+                if tmp[index-1] not in self.play_players:
+                    self.play_players.append(tmp[index-1])
+                tmp.remove(self.play_players[-1])
+            except:
+                print("Please select true index\n")
         input("\n"*100 + "Players select successful\n" + "Press anything to continue\n")
         return self.play_players
     def removeplayers(self):
@@ -224,56 +200,38 @@ class SetOption:
         player_mark = input("\n"*100 + "What's your player's mark?\n\n")
         new_player = player('',player_name,player_mark)
         new_player.save()
-        print("\n"*100 +
-        "Create player {} successfully".format(new_player.get_name()))
+        print("\n"*100 +"Create player {} successfully".format(new_player.get_name()))
         return new_player
     def get_player(self,name):
         for player in self.players:
             if player.get_name() == name: return player
         return None
     def save(self):
-        map_list = ""
-        name_list = ""
-        selected_player_list = ""
-        f = open(PYPARAMETER.get_optionfile(), "w+")
-        for map_name in self.get_maps_names():
-            map_list += map_name + ","
-        map_list = map_list[:-1]
-        f.write("maps:" + map_list + "\n")
-        for selected_player in self.play_players:
-            selected_player_list += selected_player.get_name() + ","
-        selected_player_list = selected_player_list[:-1]
-        f.write("select_players:" +selected_player_list + "\n" )
-        for player_name in self.get_players_names():
-            name_list += player_name + ","
-        name_list = name_list[:-1]
-        f.write("selected_map:" + self.playmap.get_name() + "\n")
-        f.write("players:" + name_list + "\n")
-        f.write("money:" + str(self.money) + "\n")
-        f.write("num_players:" + str(self.num_players))
-        f.close()
         file = open(DATA_LOCATION+'/Settings.txt','wb+')
         cPickle.dump(self,file,0)
         file.close()
     def load(self):
-        file = open(DATA_LOCATION+'/Settings.txt','rb')
-        self = cPickle.load(file)
-        file.close()
-        return True
+        try:
+            file = open(DATA_LOCATION+'/Settings.txt','rb')
+            self = cPickle.load(file)
+            file.close()
+            return True
+        except:
+            return False
     def play(self):
         print("\n"*100)
         STOP = False
         while not STOP:
-            if self.load():
-                print("Players: {}".format(self.get_players_names()))
-                print("Selected player: {}".format(self.get_play_players_name()))
-                print("Maps: {}".format(self.get_maps_names()))
-                try:
-                    print("Selected Map: {}".format(self.playmap.get_name()))
-                except:
-                    print("Selected Map: Not selected")
-                print("Startup money: {}".format(self.money))
-                print("Number of players: {}".format(self.num_players))
+            print("Settings\n")
+            print("Players: {}".format(self.get_players_names()))
+            print("Selected player: {}".format(self.get_play_players_name()))
+            print("Maps: {}".format(self.get_maps_names()))
+            try:
+                print("Selected Map: {}".format(self.playmap.get_name()))
+            except:
+                print("Selected Map: Not selected")
+            print("Startup money: {}".format(self.money))
+            print("Number of players: {}".format(self.num_players))
 
             num = self.settings_menu()
             if num == 1:
@@ -282,7 +240,7 @@ class SetOption:
             elif num == 2:
                 self.playmap = self.selectmap()
             elif num == 3:
-                self.money = int(input("\n"*100 + "Please enter the money"))
+                self.money = int(input("\n"*100 + "Please enter the money\n"))
             elif num == 4:
                 self.num_players = int(input("\n"*100 + "Please enter the number of players\n"))
                 self.play_players = self.selectplayers()
@@ -305,14 +263,16 @@ class SetOption:
             return int(selection)
         except:
             return self.settings_menu("Please enter the selection from 1 to 4")
-#state_setting = SetOption(read_dictionary(PYPARAMETER.get_optionfile(),":"))
-state_setting = SetOption()
-state_setting.load()
 class Option_factory:
-    def __init__(self,):
+    def __init__(self):
         self.parameter = PYPARAMETER
     def factory(self,num):
         state = None
+        try:
+            state_setting = Load_settings()
+        except:
+            state_setting = SetOption()
+            print("No setting file found\n")
         if num == self.parameter.START_GAME:
             players = state_setting.get_players()
             play_players = state_setting.get_play_players()
@@ -331,14 +291,8 @@ class Option_factory:
         return state
 def main():
     STOP = False
-
-    try:
-        option_dict = read_dictionary(pyparameter.get_optionfile(),":")
-    except:
-        print("Fail to read the settings, please set the settings latter")
     while not STOP:
          num = PYMENU.print_main_menu()
-
          if num == PYPARAMETER.QUIT_PARAMETER:
              STOP = True
              PYMENU.exit_monopoly()
