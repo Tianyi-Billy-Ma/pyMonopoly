@@ -1,3 +1,7 @@
+import _pickle as Pickle
+import os
+CURRENT_LOCATION = os.path.dirname(os.path.abspath(__file__))+"/"
+GAME_LOCATION = os.path.dirname(os.path.abspath(__file__)) + "/Data/Games/"
 import numpy as np
 import os
 import _pickle as cPickle
@@ -191,7 +195,6 @@ class pyMap:
 class Game:
     def __init__(self,gameName,state_setting):
         self.players = state_setting.get_play_players()
-        self.state_setting = state_setting
         self.cplayer_idx = np.random.randint(len(self.players))
         self.cplayer = self.players[self.cplayer_idx]
         self.cplayer_location = [0 for _ in range(len(self.players))]
@@ -246,8 +249,6 @@ class Game:
             self.update()
         self.update()
         self.save()
-    def trade(self):
-        print("Trade function is open for you to develop!")
     def update(self):
         self.player_money =  [player.money for player in self.players]
         self.players_own_properties = [ []* len(self.players)]
@@ -407,30 +408,12 @@ class Game:
         file = open(GAME_LOCATION+str(self.name)+'.txt','wb+')
         cPickle.dump(self,file,0)
         file.close()
-    def copy(self,game):
-        self.players = game.players
-        self.state_setting = game.state_setting
-        self.cplayer_idx = game.cplayer_idx
-        self.cplayer = game.cplayer
-        self.cplayer_location = game.cplayer_location
-        self.cmoved = game.cmoved
-        self.map = game.map
-        self.properties = game.properties
-        self.players_own_properties = game.players_own_properties
-        self.map_size = game.map_size
-        self.name = game.name
-        self.dice = Dice()
-        self.cards = cards()
-        self.start_money = game.start_money
-        self.player_names = game.player_names
-        self.player_money = game.player_money
-        self.termnial_controller = -1
-        self.player_names = game.player_names
-        self.player_money = game.player_money
-        self.loop_reward = game.loop_reward
-        self.map_list = game.map_list
-        self.MAP_XY_TO_IDX = game.MAP_XY_TO_IDX
-        return self
+    def load(self):
+        file = open(GAME_LOCATION+self.name+'.txt','rb')
+        dataPickle = file.read()
+        file.close()
+        self.__dict__ = cPickle.loads(dataPickle)
+
 class LoadGame:
     def __init__(self):
         self.games_address = os.listdir(GAME_LOCATION)
@@ -452,8 +435,6 @@ class LoadGame:
                 self.games_list.append(file)
         if not no_files: return PYPARAMETER.ERROR1
         num = int(input(ask))
-        self.game_file = self.games_list[num-1]
-        game = self.load(self.game_file)
         try:
             self.game_file = self.games_list[num-1]
             game = self.load(self.game_file)
@@ -462,13 +443,11 @@ class LoadGame:
     def load(self,file_name):
         file = open(GAME_LOCATION+file_name,'rb')
         game = cPickle.load(file)
-        tmp_game = Game(game.name,game.state_setting)
-        tmp_game =  tmp_game.copy(game)
         file.close()
         empty_screen()
         print("Welcome back!\n")
         input("Press any key to continue\n")
-        tmp_game.play()
+        game.play()
 class main_menu:
     def __init__(self):
         self.num_mainmenu = 0
@@ -670,21 +649,8 @@ def main():
                  print(ERROR)
                  ERROR = ""
                  input("Press any key to main menu\n")
-
 if __name__ == '__main__':
-    '''
-    new = pyMap("normal")
-    new.properties_list.append(Property(start_property))
-    for idx in range(4):
-        for _ in range(8):
-            new.properties_list.append(Property(tmp_property))
-        if idx != 3:
-            new.properties_list.append(Property(Card_property))
-    print(len(new.properties_list))
-
-    if len(new.properties_list) == 36:
-        new.save()
-    new = pyLoad.loads("default map")
-    print(new.properties_list)
-    '''
-    main()
+    file = open(GAME_LOCATION+"1.txt",'rb')
+    game = Pickle.load(file)
+    file.close()
+    game.play()
